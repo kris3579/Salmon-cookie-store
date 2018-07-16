@@ -5,62 +5,66 @@ var firstAndPike =  {
   maxCustomers: 65,
   avgCookiesPerCustomer: 6.3,
   random: function() {
-    return Math.floor(Math.random()* (this.maxCustomers-this.minCustomers)) + this.minCustomers;
+    return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
   },
-  CookiesPerHour: [],
+  cookiesPerHour: [],
 };
 
-firstAndPike.random(firstAndPike.maxCustomers, firstAndPike.minCustomers);
-console.log(firstAndPike.random());
-
-var SeaTac = {
+var seaTac = {
   minCustomers: 3,
   maxCustomers: 24,
   avgCookiesPerCustomer: 1.2,
   random: function() {
-    return Math.floor(Math.random()* (this.maxCustomers-this.minCustomers)) + this.minCustomers;
+    return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
   },
-  CookiesPerHour: [],
+  cookiesPerHour: [],
 };
 
-SeaTac.random(SeaTac.minCustomers, SeaTac.maxCustomers);
-console.log(SeaTac.random());
 
-var SeaCenter = {
+
+var seaCenter = {
   minCustomers: 11,
   maxCustomers: 38,
   avgCookiesPerCustomer: 3.7,
   random: function() {
-    return Math.floor(Math.random()* (this.maxCustomers-this.minCustomers)) + this.minCustomers;
+    return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
   },
-  CookiesPerHour: [],
+  cookiesPerHour: [],
 };
 
-SeaCenter.random(SeaCenter.minCustomers, SeaCenter.maxCustomers);
-console.log(SeaCenter.random());
-
-var CapHill = {
+var capHill = {
   minCustomers: 20,
   maxCustomers: 38,
   avgCookiesPerCustomer: 2.3,
   random: function() {
-    return Math.floor(Math.random()* (this.maxCustomers-this.minCustomers)) + this.minCustomers;
+    return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
   },
-  CookiesPerHour: [],
+  cookiesPerHour: [],
 };
 
-CapHill.random(CapHill.minCustomers, CapHill.maxCustomers);
-console.log(CapHill.random());
 
-var Alki = {
+
+var alki = {
   minCustomers: 2,
   maxCustomers: 16,
   avgCookiesPerCustomer: 4.6,
   random: function() {
-    return Math.floor(Math.random()* (this.maxCustomers-this.minCustomers)) + this.minCustomers;
+    return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
   },
-  CookiesPerHour: [],
+  cookiesPerHour: [],
 };
 
-Alki.random(Alki.minCustomers, Alki.maxCustomers);
-console.log(Alki.random());
+
+
+for (var i = 0; i < 15; i++) {
+  firstAndPike.cookiesPerHour.push(firstAndPike.random(firstAndPike.maxCustomers, firstAndPike.minCustomers));
+  seaTac.cookiesPerHour.push(seaTac.random(seaTac.minCustomers, seaTac.maxCustomers));
+  seaCenter.cookiesPerHour.push(seaCenter.random(seaCenter.minCustomers, seaCenter.maxCustomers));
+  capHill.cookiesPerHour.push(capHill.random(capHill.minCustomers, capHill.maxCustomers));
+  alki.cookiesPerHour.push(alki.random(alki.minCustomers, alki.maxCustomers));
+}
+console.log(firstAndPike.cookiesPerHour);
+console.log(seaTac.cookiesPerHour);
+console.log(seaCenter.cookiesPerHour);
+console.log(capHill.cookiesPerHour);
+console.log(alki.cookiesPerHour);

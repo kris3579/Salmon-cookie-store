@@ -2,60 +2,74 @@
 
 var storeHours = ['6am:', '7am:', '8am:', '9am:', '10am:', '11am:', '12pm:', '1pm:', '2pm:', '3pm:', '4pm:', '5pm:', '6pm:', '7am:', '8am:',];
 
-var firstAndPike =  {
-  minCustomers: 23,
-  maxCustomers: 65,
-  avgCookiesPerCustomer: 6.3,
-  customersPerHour: function() {
-    return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
-  },
-  cookiesPerHour: [],
-  total: 0,
-};
+function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
+  this.name = name;
+  this.minCustomers = minCustomers;
+  this.maxCustomers = maxCustomers;
+  this.avgCookiesPerCustomer = avgCookiesPerCustomer;
+}
 
-var seaTac = {
-  minCustomers: 3,
-  maxCustomers: 24,
-  avgCookiesPerCustomer: 1.2,
-  customersPerHour: function() {
-    return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
-  },
-  cookiesPerHour: [],
-  total: 0,
-};
+new Store('First and Pike', 23, 65, 6.3);
+new Store('SeaTac Airport', 23, 65, 6.3);
+new Store('Seattle Center', 23, 65, 6.3);
+new Store('Capitol Hill', 23, 65, 6.3);
+new Store('Alki', 23, 65, 6.3);
 
-var seaCenter = {
-  minCustomers: 11,
-  maxCustomers: 38,
-  avgCookiesPerCustomer: 3.7,
-  customersPerHour: function() {
-    return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
-  },
-  cookiesPerHour: [],
-  total: 0,
-};
+// var firstAndPike =  {
+//   minCustomers: 23,
+//   maxCustomers: 65,
+//   avgCookiesPerCustomer: 6.3,
+//   customersPerHour: function() {
+//     return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
+//   },
+//   cookiesPerHour: [],
+//   total: 0,
+// };
 
-var capHill = {
-  minCustomers: 20,
-  maxCustomers: 38,
-  avgCookiesPerCustomer: 2.3,
-  customersPerHour: function() {
-    return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
-  },
-  cookiesPerHour: [],
-  total: 0,
-};
+// var seaTac = {
+//   minCustomers: 3,
+//   maxCustomers: 24,
+//   avgCookiesPerCustomer: 1.2,
+//   customersPerHour: function() {
+//     return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
+//   },
+//   cookiesPerHour: [],
+//   total: 0,
+// };
 
-var alki = {
-  minCustomers: 2,
-  maxCustomers: 16,
-  avgCookiesPerCustomer: 4.6,
-  customersPerHour: function() {
-    return (Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer);
-  },
-  cookiesPerHour: [],
-  total: 0,
-};
+// var seaCenter = {
+//   minCustomers: 11,
+//   maxCustomers: 38,
+//   avgCookiesPerCustomer: 3.7,
+//   customersPerHour: function() {
+//     return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
+//   },
+//   cookiesPerHour: [],
+//   total: 0,
+// };
+
+// var capHill = {
+//   minCustomers: 20,
+//   maxCustomers: 38,
+//   avgCookiesPerCustomer: 2.3,
+//   customersPerHour: function() {
+//     return Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
+//   },
+//   cookiesPerHour: [],
+//   total: 0,
+// };
+
+// var alki = {
+//   minCustomers: 2,
+//   maxCustomers: 16,
+//   avgCookiesPerCustomer: 4.6,
+//   customersPerHour: function() {
+//     return (Math.floor(Math.random()* ((this.maxCustomers-this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer);
+//   },
+//   cookiesPerHour: [],
+//   total: 0,
+// };
+
 // These variable make working with the total (pushing it into an array or something) easier down the line
 var firstAndPikeTotal = firstAndPike.total;
 var seaTacTotal = seaTac.total;

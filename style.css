@@ -1,0 +1,48 @@
+body {
+  background-color: #fa8072;
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.5em;
+  color: rgb(255, 255, 255);
+}
+
+h2 {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 2em;
+  color: rgb(255, 255, 255)
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: rgb(255, 255, 255)
+}
+
+ul {
+  border-style: outset;
+  border-color: black;
+  border-width: 5px;
+  width: 300px;
+  margin-top: 10px;
+  margin-left: 60px;
+  background-color: #248124;
+}
+
+#section1 div {
+  display: inline;
+}
+
+#section2 div {
+  display: inline;
+}
+
+#salmon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+}

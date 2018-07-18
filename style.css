@@ -27,16 +27,19 @@ h3 {
   color: rgb(255, 255, 255)
 }
 
-ul {
+ul, table {
   color: rgb(243, 63, 153);
   font-family: Helvetica, Arial, sans-serif;
   border-style: outset;
   border-color: black;
   border-width: 5px;
-  width: 175px;
   margin-top: 10px;
   margin-left: 60px;
   background-color: rgb(49, 114, 45);
+}
+
+tr, td {
+  border: solid black 2px;
 }
 
 aside {

@@ -2,6 +2,8 @@
 
 var storeHours = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm', '5:00 pm', '6:00 pm', '7:00 am', '8:00 am', 'Daily Total'];
 var allStores = [];
+var totalByHourArray = ['Totals',];
+
 function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
   this.name = name;
   this.minCustomers = minCustomers;
@@ -40,7 +42,7 @@ Store.prototype.render = function () {
   tdNameEl.textContent = this.name;
   trStoreEl.appendChild(tdNameEl);
 
-  for (var idx =0; idx < storeHours.length; idx++) {
+  for (var idx = 0; idx < storeHours.length; idx++) {
     var tdDateEl = document.createElement('td');
     tdDateEl.textContent = this.cookiesPerHour[idx];
     trStoreEl.appendChild(tdDateEl);
@@ -101,9 +103,21 @@ console.log('Alki totals', alki.totals);
 
 createTable();
 
+
+function columnTotal() {
+  var hourTotal = 0;
+  for (store in allStores) {
+    hourTotal += store.t;
+    totalByHourArray.push(hourTotal);
+  }
+}
+
+columnTotal();
+console.log(totalByHourArray);
+
 var formEl = document.getElementById('form1');
 
-formEl.addEventListener('submit', function(event) {
+formEl.addEventListener('submit', function (event) {
   event.preventDefault();
 
   console.log(allStores.length);

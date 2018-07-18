@@ -24,12 +24,15 @@ var tblEl = document.createElement('table');
 Store.prototype.calcCustomersPerHour = function () {
   return Math.floor(Math.random() * ((this.maxCustomers - this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
 };
+
 Store.prototype.calcCookiesPerHour = function () {
   this.cookiesPerHour.push(Math.round(this.calcCustomersPerHour(this.minCustomers, this.maxCustomers)));
 };
+
 Store.prototype.total = function () {
   this.totals = Math.round(this.totals += this.calcCustomersPerHour(this.maxCustomers, this.minCustomers));
 };
+
 Store.prototype.render = function () {
   this.calcCookiesPerHour();
   var trStoreEl = document.createElement('tr');
@@ -85,7 +88,6 @@ seaCenter.cookiesPerHour.push(seaCenter.totals);
 capHill.cookiesPerHour.push(capHill.totals);
 alki.cookiesPerHour.push(alki.totals);
 
-//allStores.cookiesPerHour.push(this.totals);
 console.log('First and Pike cookies per hour array', pike.cookiesPerHour);
 console.log('SeaTac Airport cookies per hour array', seaTac.cookiesPerHour);
 console.log('Seattle Center cookies per hour array', seaCenter.cookiesPerHour);

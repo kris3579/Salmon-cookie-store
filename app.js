@@ -69,6 +69,9 @@ for (var n = 0; n < storeHours.length; n++) {
   tdEl.textContent = storeHours[n];
   trEl.appendChild(tdEl);
 }
+var tdEl4 = document.createElement('td');
+tdEl4.textContent = 'Totals';
+trEl.appendChild(tdEl4);
 var semiEl = document.getElementById('info');
 semiEl.appendChild(trEl);
 
@@ -86,9 +89,5 @@ for (var j = 0; j < 5; j++) {
   trEl2.appendChild(tdEl3);
   var semiEl2 = document.getElementById('info');
   semiEl2.appendChild(trEl2);
-  var trEl4 = document.createElement('tr');
-  var tdEl4 = document.createElement('td');
-  tdEl4.textContent = 'Totals';
-  trEl4.appendChild(tdEl4);
 }
 

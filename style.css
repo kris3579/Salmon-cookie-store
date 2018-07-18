@@ -39,7 +39,7 @@ ul, table {
   background-color: rgb(49, 114, 45);
 }
 
-tr, td {
+tr, td, th {
   border: solid black 2px;
 }
 

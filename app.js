@@ -138,6 +138,10 @@ for (var store of allStores) {
 }
 
 function footer() {
+  // This is where I am going to fix the totals not being below new stores problem
+  // if (document.getElementsByTagName('foot') !== undefined){
+  //   document.getElementsByTagName('foot').delete
+  // }
   var trFootEl = document.createElement('tr');
   for (var x = 0; x < totalByHourArray.length; x++) {
     var thFootEl = document.createElement('th');
@@ -147,3 +151,5 @@ function footer() {
   tblEl.appendChild(trFootEl);
 }
 footer();
+
+// Change footer to tfoot

@@ -31,12 +31,17 @@ h3 {
 
 ul, table {
   color: rgb(243, 63, 153);
+  text-align: center;
   font-family: Helvetica, Arial, sans-serif;
   border-style: outset;
   border-color: black;
   border-width: 5px;
   margin: auto;
   background-color: rgb(49, 114, 45);
+}
+
+td, th {
+  padding: 5px;
 }
 
 tr, td, th {

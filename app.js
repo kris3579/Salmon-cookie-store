@@ -106,14 +106,19 @@ createTable();
 
 function columnTotal() {
   var hourTotal = 0;
-  for (store in allStores) {
-    hourTotal += store.t;
+  for (var hours in storeHours) {
+    for (store in allStores) {
+      hourTotal += allStores[store].cookiesPerHour[hours];
+      console.log(hourTotal);
+    }
     totalByHourArray.push(hourTotal);
+    hourTotal = 0;
   }
 }
 
 columnTotal();
 console.log(totalByHourArray);
+
 
 var formEl = document.getElementById('form1');
 

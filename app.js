@@ -4,7 +4,7 @@ var storeHours = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', 
 var allStores = [];
 var totalByHourArray = ['Totals'];
 
-
+// Contructer function calls calCookiesPerHour and rowTotal for each new store, setting its cookiesPerHour array up to be used on a table row
 function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
   this.name = name;
   this.minCustomers = minCustomers;
@@ -13,7 +13,9 @@ function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
   this.cookiesPerHour = [];
   this.totals = 0;
 
+  // Pushes itself to the allStores array
   allStores.push(this);
+  // Runs its own calcCookiesPerHour and rowTotal functions upon creation, and stores values in its cookiesPerHour array
   this.calcCookiesPerHour();
   this.rowTotal();
 }
@@ -21,16 +23,21 @@ function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
 var tblEl = document.createElement('table');
 createTable();
 
+// Calculates a random number of customers every hour, this is called within the calcCookiesPerHour prototype function
 Store.prototype.calcCustomersPerHour = function () {
   return Math.floor(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
 };
 
+// Calculates the number of cookies each hour by multyplying the results of calcCustomersPerHour by this.avgCookiesPerCustomer, this number is then pushed
+// to this.cookiesPerHour array as a rounded number
 Store.prototype.calcCookiesPerHour = function () {
   for (var i = 0; i < storeHours.length - 1; i++) {
     this.cookiesPerHour.push(Math.round(this.calcCustomersPerHour(this.minCustomers, this.maxCustomers)) * this.avgCookiesPerCustomer);
   }
 };
 
+// thisStoresTotal takes each stores initial totals value of 0, and goes through a loop in which it adds each value from the this.cookiesPerHour array
+// to iteself. Then thisStoresTotal is also pushed to the this.cookiesPerHour array as the total value of the row.
 Store.prototype.rowTotal = function () {
   var thisStoresTotal = this.totals;
   for (var i = 0; i < this.cookiesPerHour.length; i++) {
@@ -39,54 +46,94 @@ Store.prototype.rowTotal = function () {
   this.cookiesPerHour.push(Math.round(thisStoresTotal));
 };
 
+
 Store.prototype.render = function () {
+  // Varianles are defined for creating a row for a new store and creating a () for the store name
   var trStoreEl = document.createElement('tr');
   var tdNameEl = document.createElement('td');
+  // textContent fills the name () created with this.name 
   tdNameEl.textContent = this.name;
+  // appendChild applies the name just created to the first position on our new stores row
   trStoreEl.appendChild(tdNameEl);
   for (var i = 0; i < storeHours.length; i++) {
+    // Variable defined for creating a () for data
     var tdDataEl = document.createElement('td');
+    // Fill () with this.cookiesPerHour[i]
     tdDataEl.textContent = this.cookiesPerHour[i];
+    // Append () to the new store row created, In other words the loop creates and fills a () with each value in the cookiesPerHour array
     trStoreEl.appendChild(tdDataEl);
   }
+  // Append complete store row to the table
   tblEl.appendChild(trStoreEl);
+  // run the footer function, destroying the current table footer and recreating for correct column total and positioning
+  // footer();
 };
 
+function columnTotal() {
+  var hourTotal = 0;
+  // if (totalByHourArray.length > 1) {
+  //   for (var z = 0; z < 16; z++) {
+  //     totalByHourArray.pop();
+  //   }
+  // }
+  for (var hours in storeHours) {
+    for (var store in allStores) {
+      // The hourTotal adds the cookiesPerHour value at the same index as hours, for every store, in other words it adds the whole column for every hour
+      hourTotal += allStores[store].cookiesPerHour[hours];
+    }
+    // push hourTotal into the totalByHourArray to be appended to the footer
+    totalByHourArray.push(hourTotal);
+    // resets the hour total to 0 for the next loop for next hour
+    hourTotal = 0;
+  }
+}
+
 function createTable() {
+  // Variables for a header row and ()
   var trHeaderEl = document.createElement('tr');
   var thBlankEl = document.createElement('th');
+  // Fills first () on header row with nothing
   thBlankEl.textContent = '';
+  // Puts it on row
   trHeaderEl.appendChild(thBlankEl);
   for (var i = 0; i < storeHours.length; i++) {
+    // Variable for createing a header () 
     var thEl = document.createElement('th');
+    // Fills it with one of the hours of the day, and at the end 'Totals'
     thEl.textContent = storeHours[i];
+    // Appends to created header row
     trHeaderEl.appendChild(thEl);
   }
+  // Appends complete header row to the table
   tblEl.appendChild(trHeaderEl);
+  // Appends the table itself to a section in the HTML with the id 'main-content'
   document.getElementById('main-content').appendChild(tblEl);
 }
 
-var tblFootEl = document.createElement('tfoot');
-tblFootEl.setAttribute('id', 'tfooter');
-var trFootEl = document.createElement('tr');
-var tdFootEl = document.createElement('td');
-
+// var tblFootEl = document.createElement('tfoot');
 function footer() {
   // if (tblFootEl) {
   //   tblFootEl.tblEl.removeChild(tblFootEl);
   // }
+  // Variable for a footer to the table, a footer row, a footer ()
   var tblFootEl = document.createElement('tfoot');
-  trFootEl = document.createElement('tr');
-  tdFootEl = document.createElement('td');
+  // here we give the footer an id of 'tfooter' so we can reset it later
+  tblFootEl.setAttribute('id', 'tfooter');
+  var trFootEl = document.createElement('tr');
+  var tdFootEl = document.createElement('td');
   for (var x = 0; x < totalByHourArray.length; x++) {
+    // Fills footer () with the values of totalByHourArray, which has the column totals pushed by the columnTotal() function
     tdFootEl.textContent = totalByHourArray[x];
+    //Appends footer () to the footer row
     trFootEl.appendChild(tdFootEl);
   }
+  // Append the footer row to footer itself
   tblFootEl.appendChild(trFootEl);
+  // Append the footer to the table
   tblEl.appendChild(tblFootEl);
 }
 
-
+// Every store pushes itself to the allStores array, so this automatically calls our render function for each store when created
 for (var store of allStores) {
   store.render();
 }

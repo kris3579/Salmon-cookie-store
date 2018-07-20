@@ -18,6 +18,7 @@ function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
   // Runs its own calcCookiesPerHour and rowTotal functions upon creation, and stores values in its cookiesPerHour array
   this.calcCookiesPerHour();
   this.rowTotal();
+  // Renders itself
   this.render();
 }
 
@@ -49,7 +50,7 @@ Store.prototype.rowTotal = function () {
 
 
 Store.prototype.render = function () {
-  // Varianles are defined for creating a row for a new store and creating a () for the store name
+  // Variables are defined for creating a row for a new store and creating a () for the store name
   var trStoreEl = document.createElement('tr');
   var tdNameEl = document.createElement('td');
   // textContent fills the name () created with this.name
@@ -66,8 +67,8 @@ Store.prototype.render = function () {
   }
   // Append complete store row to the table
   tblEl.appendChild(trStoreEl);
-  // run the footer function, destroying the current table footer and recreating for correct column total and positioning
-  // footer();
+  // Run the columnTotal function, recalculating the column totals, then running the footer function to recreate the footer row
+  columnTotal();
 };
 
 function columnTotal() {
@@ -79,13 +80,11 @@ function columnTotal() {
     }
     // Push hourTotal into the totalByHourArray to be appended to the footer
     totalByHourArray.push(hourTotal);
-    // Reset totalByHourArray
-    for (var i = 0; i < 14; i++) {
-      totalByHourArray.pop();
-    }
     // Reset the hour total to 0 for the next loop for next hour
     hourTotal = 0;
   }
+  // run the footer function, destroying the current table footer and recreating for correct column total and positioning
+  footer();
 }
 
 function createTable() {
@@ -110,30 +109,31 @@ function createTable() {
   document.getElementById('main-content').appendChild(tblEl);
 }
 
-// var tblFootEl = document.createElement('tfoot');
+// Variable for a footer row and a footer ()
+var trFootEl = document.createElement('tr');
+// here we give the footer an id of 'tfooter' so we can reset it later
+trFootEl.setAttribute('id', 'tfooter');
+var tdFootEl = document.createElement('td');
+
 function footer() {
-  // if (tblFootEl) {
-  //   tblFootEl.tblEl.removeChild(tblFootEl);
+  // if (tblEl) {
+  //   tblFoot.tblEl.removeChild(tblFoot);
   // }
-  // Variable for a footer to the table, a footer row, a footer ()
-  var tblFootEl = document.createElement('tfoot');
-  // here we give the footer an id of 'tfooter' so we can reset it later
-  tblFootEl.setAttribute('id', 'tfooter');
-  var trFootEl = document.createElement('tr');
-  var tdFootEl = document.createElement('td');
   for (var x = 0; x < totalByHourArray.length; x++) {
     // Fills footer () with the values of totalByHourArray, which has the column totals pushed by the columnTotal() function
     tdFootEl.textContent = totalByHourArray[x];
     //Appends footer () to the footer row
     trFootEl.appendChild(tdFootEl);
   }
-  // Append the footer row to footer itself
-  tblFootEl.appendChild(trFootEl);
   // Append the footer to the table
-  tblEl.appendChild(tblFootEl);
+  tblEl.appendChild(trFootEl);
+  // Reset totalByHourArray
+  for (var i = 0; i < 16; i++) {
+    totalByHourArray.pop();
+  }
 }
 
-// Every store pushes itself to the allStores array, so this automatically calls our render function for each store when created
+
 // for (var store of allStores) {
 //   store.render();
 // }

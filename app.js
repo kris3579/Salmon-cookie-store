@@ -2,8 +2,6 @@
 
 var storeHours = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm', '5:00 pm', '6:00 pm', '7:00 am', '8:00 am', 'Daily Total'];
 var allStores = [];
-var totalByHourArray = ['Totals',];
-
 function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
   this.name = name;
   this.minCustomers = minCustomers;
@@ -21,14 +19,19 @@ var seaCenter = new Store('Seattle Center', 11, 37, 3.7);
 var capHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 
+
 var tblEl = document.createElement('table');
 
 Store.prototype.calcCustomersPerHour = function () {
-  return Math.floor(Math.random() * ((this.maxCustomers - this.minCustomers)) + this.minCustomers) * this.avgCookiesPerCustomer;
+  return Math.floor(Math.random() * (this.maxCustomers - this.minCustomers) + this.minCustomers);
 };
 
 Store.prototype.calcCookiesPerHour = function () {
-  this.cookiesPerHour.push(Math.round(this.calcCustomersPerHour(this.minCustomers, this.maxCustomers)));
+  // this.cookiesPerHour.push(Math.round(this.calcCustomersPerHour(this.minCustomers, this.maxCustomers)) * this.avgCookiesPerCustomer);
+  for (var i = 0; i < storeHours.length; i++) {
+
+   this.cookiesPerHour.push(Math.floor((this.calcCustomersPerHour() * this.avgCookiesPerCustomer)));
+  }
 };
 
 Store.prototype.total = function () {
@@ -37,15 +40,19 @@ Store.prototype.total = function () {
 
 Store.prototype.render = function () {
   this.calcCookiesPerHour();
+  console.log(this.cookiesPerHour);
   var trStoreEl = document.createElement('tr');
   var tdNameEl = document.createElement('td');
   tdNameEl.textContent = this.name;
   trStoreEl.appendChild(tdNameEl);
+  // console.log(this.cookiesPerHour);
   for (var idx = 0; idx < storeHours.length; idx++) {
     var tdDateEl = document.createElement('td');
     tdDateEl.textContent = this.cookiesPerHour[idx];
+    // console.log(this.cookiesPerHour[idx]);
     trStoreEl.appendChild(tdDateEl);
   }
+
   tblEl.appendChild(trStoreEl);
 };
 
@@ -65,91 +72,55 @@ function createTable() {
   document.getElementById('main-content').appendChild(tblEl);
 }
 
-for (var i = 1; i < storeHours.length; i++) {
-  pike.calcCustomersPerHour();
-  pike.calcCookiesPerHour();
-  pike.total();
-  seaTac.calcCustomersPerHour();
-  seaTac.calcCookiesPerHour();
-  seaTac.total();
-  seaCenter.calcCustomersPerHour();
-  seaCenter.calcCookiesPerHour();
-  seaCenter.total();
-  capHill.calcCustomersPerHour();
-  capHill.calcCookiesPerHour();
-  capHill.total();
-  alki.calcCustomersPerHour();
-  alki.calcCookiesPerHour();
-  alki.total();
-}
-pike.cookiesPerHour.push(pike.totals);
-seaTac.cookiesPerHour.push(seaTac.totals);
-seaCenter.cookiesPerHour.push(seaCenter.totals);
-capHill.cookiesPerHour.push(capHill.totals);
-alki.cookiesPerHour.push(alki.totals);
+// for (var i = 1; i < storeHours.length; i++) {
+//   pike.calcCustomersPerHour();
+//   pike.calcCookiesPerHour();
+//   pike.total();
+//   seaTac.calcCustomersPerHour();
+//   seaTac.calcCookiesPerHour();
+//   seaTac.total();
+//   seaCenter.calcCustomersPerHour();
+//   seaCenter.calcCookiesPerHour();
+//   seaCenter.total();
+//   capHill.calcCustomersPerHour();
+//   capHill.calcCookiesPerHour();
+//   capHill.total();
+//   alki.calcCustomersPerHour();
+//   alki.calcCookiesPerHour();
+//   alki.total();
+// }
+// pike.cookiesPerHour.push(pike.totals);
+// seaTac.cookiesPerHour.push(seaTac.totals);
+// seaCenter.cookiesPerHour.push(seaCenter.totals);
+// capHill.cookiesPerHour.push(capHill.totals);
+// alki.cookiesPerHour.push(alki.totals);
 
-console.log('First and Pike cookies per hour array', pike.cookiesPerHour);
-console.log('SeaTac Airport cookies per hour array', seaTac.cookiesPerHour);
-console.log('Seattle Center cookies per hour array', seaCenter.cookiesPerHour);
-console.log('Capitol Hill cookies per hour array', capHill.cookiesPerHour);
-console.log('Alki cookies per hour array', alki.cookiesPerHour);
-console.log('First and Pike totals', pike.totals);
-console.log('SeaTac Airport totals', seaTac.totals);
-console.log('Seattle Center totals', seaCenter.totals);
-console.log('Capitol Hill totals', capHill.totals);
-console.log('Alki totals', alki.totals);
+// console.log('First and Pike cookies per hour array', pike.cookiesPerHour);
+// console.log('SeaTac Airport cookies per hour array', seaTac.cookiesPerHour);
+// console.log('Seattle Center cookies per hour array', seaCenter.cookiesPerHour);
+// console.log('Capitol Hill cookies per hour array', capHill.cookiesPerHour);
+// console.log('Alki cookies per hour array', alki.cookiesPerHour);
+// console.log('First and Pike totals', pike.totals);
+// console.log('SeaTac Airport totals', seaTac.totals);
+// console.log('Seattle Center totals', seaCenter.totals);
+// console.log('Capitol Hill totals', capHill.totals);
+// console.log('Alki totals', alki.totals);
 
 createTable();
-
-function columnTotal() {
-  var hourTotal = 0;
-  for (var hours in storeHours) {
-    for (store in allStores) {
-      hourTotal += allStores[store].cookiesPerHour[hours];
-      console.log(hourTotal);
-    }
-    totalByHourArray.push(hourTotal);
-    hourTotal = 0;
-  }
-}
-
-columnTotal();
-console.log(totalByHourArray);
-
-var formEl = document.getElementById('form1');
-
-formEl.addEventListener('submit', function (event) {
-  event.preventDefault();
-  console.log(allStores.length);
-
-  var name = event.target.name.value;
-  var minCustomers = event.target.minCustomers.value;
-  var maxCustomers = event.target.maxCustomers.value;
-  var avgCookiesPerCustomer = event.target.avgCookiesPerCustomer.value;
-  var newStore = new Store(name, parseInt(minCustomers), parseInt(maxCustomers), parseInt(avgCookiesPerCustomer));
-
-  console.log(allStores);
-  newStore.cookiesPerHour.push(newStore.totals);
-  newStore.render();
-});
 
 for (var store of allStores) {
   store.render();
 }
 
-function footer() {
-  // This is where I am going to fix the totals not being below new stores problem
-  // if (document.getElementsByTagName('foot') !== undefined){
-  //   document.getElementsByTagName('foot').delete
-  // }
-  var trFootEl = document.createElement('tr');
-  for (var x = 0; x < totalByHourArray.length; x++) {
-    var thFootEl = document.createElement('th');
-    thFootEl.textContent = totalByHourArray[x];
-    trFootEl.appendChild(thFootEl);
-  }
-  tblEl.appendChild(trFootEl);
-}
-footer();
+var formEl = document.getElementById('form1');
 
-// Change footer to tfoot
+formEl.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  var name = event.target.name.value;
+  var minCustomers = event.target.minCustomers.value;
+  var maxCustomers = event.target.maxCustomers.value;
+  var avgCookiesPerCustomer = event.target.avgCookiesPerCustomer.value;
+  new Store(name, parseInt(minCustomers), parseInt(maxCustomers), parseInt(avgCookiesPerCustomer));
+  // newStore.cookiesPerHour.push(newStore.totals);
+});

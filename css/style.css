@@ -3,6 +3,7 @@ body {
   font-weight: bold;
   color: rgb(230, 156, 45);
   background-color: rgb(225, 115, 102);
+  font-size: 16px;
 }
 
 h1 {
@@ -62,7 +63,7 @@ aside {
   margin-right: 15px;
   background-color: rgb(49, 114, 45);
   border-color: black;
-  border-width: 5px;
+  border-width: 10px;
   border-style: solid;
   border-radius: 75px;
   padding: 30px;
@@ -159,7 +160,7 @@ li:last-child {
   margin-left: 15px;
   background-color: rgb(49, 114, 45);
   border-color: black;
-  border-width: 5px;
+  border-width: 10px;
   border-style: solid;
   border-radius: 75px;
   width: 70%;

@@ -2,7 +2,7 @@
 
 var storeHours = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm', '5:00 pm', '6:00 pm', '7:00 am', '8:00 am', 'Daily Total'];
 var allStores = [];
-var totalByHourArray = ['Totals'];
+// var totalByHourArray = ['Totals'];
 
 // Contructer function calls calCookiesPerHour and rowTotal for each new store, setting its cookiesPerHour array up to be used on a table row
 function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
@@ -18,8 +18,10 @@ function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
   // Runs its own calcCookiesPerHour and rowTotal functions upon creation, and stores values in its cookiesPerHour array
   this.calcCookiesPerHour();
   this.rowTotal();
+  removerFooter();
   // Renders itself
   this.render();
+  columnTotal();
 }
 
 var tblEl = document.createElement('table');
@@ -68,23 +70,30 @@ Store.prototype.render = function () {
   // Append complete store row to the table
   tblEl.appendChild(trStoreEl);
   // Run the columnTotal function, recalculating the column totals, then running the footer function to recreate the footer row
-  columnTotal();
+  
 };
 
 function columnTotal() {
-  var hourTotal = 0;
+  // Variable for a footer row and a footer ()
+  var trFootEl = document.createElement('tr');
+  // here we give the footer an id of 'tfooter' so we can reset it later
+  trFootEl.setAttribute('id', 'tfooter');
+  var totalFootEl = document.createElement('td');
+  totalFootEl.textContent = 'total';
+  trFootEl.appendChild(totalFootEl);
   for (var hours in storeHours) {
+    var hourTotal = 0;
     for (var store in allStores) {
       // The hourTotal adds the cookiesPerHour value at the same index as hours, for every store, in other words it adds the whole column for every hour
       hourTotal += allStores[store].cookiesPerHour[hours];
+      // console.log(hourTotal);
     }
-    // Push hourTotal into the totalByHourArray to be appended to the footer
-    totalByHourArray.push(hourTotal);
-    // Reset the hour total to 0 for the next loop for next hour
-    hourTotal = 0;
+    var dataEl = document.createElement('td');
+    dataEl.textContent = hourTotal;
+    trFootEl.appendChild(dataEl);
   }
-  // run the footer function, destroying the current table footer and recreating for correct column total and positioning
-  footer();
+  // Append the footer to the table
+  tblEl.appendChild(trFootEl);
 }
 
 function createTable() {
@@ -109,34 +118,24 @@ function createTable() {
   document.getElementById('main-content').appendChild(tblEl);
 }
 
-// Variable for a footer row and a footer ()
-var trFootEl = document.createElement('tr');
-// here we give the footer an id of 'tfooter' so we can reset it later
-trFootEl.setAttribute('id', 'tfooter');
-var tdFootEl = document.createElement('td');
-
-function footer() {
-  // if (tblEl) {
-  //   tblFoot.tblEl.removeChild(tblFoot);
-  // }
-  for (var x = 0; x < totalByHourArray.length; x++) {
-    // Fills footer () with the values of totalByHourArray, which has the column totals pushed by the columnTotal() function
-    tdFootEl.textContent = totalByHourArray[x];
-    //Appends footer () to the footer row
-    trFootEl.appendChild(tdFootEl);
-  }
-  // Append the footer to the table
-  tblEl.appendChild(trFootEl);
-  // Reset totalByHourArray
-  for (var i = 0; i < 16; i++) {
-    totalByHourArray.pop();
+function removerFooter() {
+  var totalrow = document.getElementById('tfooter');
+  if (totalrow) {
+    totalrow.remove();
   }
 }
 
+var formEl = document.getElementById('form1');
 
-// for (var store of allStores) {
-//   store.render();
-// }
+formEl.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  var name = event.target.name.value;
+  var minCustomers = event.target.minCustomers.value;
+  var maxCustomers = event.target.maxCustomers.value;
+  var avgCookiesPerCustomer = event.target.avgCookiesPerCustomer.value;
+  new Store(name, parseInt(minCustomers), parseInt(maxCustomers), parseInt(avgCookiesPerCustomer));
+});
 
 new Store('First and Pike', 23, 65, 6.3);
 new Store('SeaTac Airport', 3, 24, 1.2);

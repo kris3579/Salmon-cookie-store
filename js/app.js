@@ -2,7 +2,6 @@
 
 var storeHours = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm', '5:00 pm', '6:00 pm', '7:00 am', '8:00 am', 'Daily Total'];
 var allStores = [];
-// var totalByHourArray = ['Totals'];
 
 // Contructer function calls calCookiesPerHour and rowTotal for each new store, setting its cookiesPerHour array up to be used on a table row
 function Store(name, minCustomers, maxCustomers, avgCookiesPerCustomer) {
@@ -50,7 +49,6 @@ Store.prototype.rowTotal = function () {
   this.cookiesPerHour.push(Math.round(thisStoresTotal));
 };
 
-
 Store.prototype.render = function () {
   // Variables are defined for creating a row for a new store and creating a () for the store name
   var trStoreEl = document.createElement('tr');
@@ -69,8 +67,6 @@ Store.prototype.render = function () {
   }
   // Append complete store row to the table
   tblEl.appendChild(trStoreEl);
-  // Run the columnTotal function, recalculating the column totals, then running the footer function to recreate the footer row
-  
 };
 
 function columnTotal() {

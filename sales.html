@@ -1,16 +1,30 @@
 <!DOCTYPE>
 <html>
   <head>
-    <link href="reset.css" rel="stylesheet" type="text/css">
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="css/reset.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
   </head>
   <body>
     <h1>Salmon Cookie Data!</h1>
-    <section id = "main-content"></section>
-    <!-- <table id="info">
-    </table> -->
-
-    <script src="app.js"></script>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="sales.html">Store Data</a></li>
+      </ul>
+    </nav>
+    <section id ="main-content"></section>
+    <form id="form1">
+      <fieldset id="field">
+        <legend id="formHeader">Submit a new Salmon Cookie store</legend>
+        <input name="name" type="text" placeholder="Store name">
+        <input name="minCustomers" type="number" placeholder="Minimum customers">
+        <input name="maxCustomers" type="number" placeholder="Maximum customers">
+        <input name="avgCookiesPerCustomer" type="number" placeholder="Avg cookies per customer">
+  
+        <button type="submit">Submit</button>
+      </fieldset>
+      </form>
+    <script src="js/app.js"></script>
   </body>
 </html>
